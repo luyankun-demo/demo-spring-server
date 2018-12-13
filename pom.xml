@@ -14,12 +14,15 @@
         <build.version>1.0.0</build.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <profile.active.dev>dev</profile.active.dev>
+        <profile.active.test>test</profile.active.test>
+        <profile.active.prop>prop</profile.active.prop>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.2.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
     </parent>
 
     <dependencyManagement>
@@ -46,19 +49,42 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>        <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-eureka</artifactId>
-    </dependency>
+        </dependency>
+
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>${profile.active.dev}</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>${profile.active.dev}</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>${profile.active.test}</id>
+            <properties>
+                <spring.profiles.active>${profile.active.test}</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>${profile.active.prop}</id>
+            <properties>
+                <spring.profiles.active>${profile.active.prop}</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <!-- 配置resources下的配置文件 -->
@@ -67,6 +93,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/application.yml</include>
+                    <include>**/application-${spring.profiles.active}.yml</include>
                 </includes>
                 <!--替换资源中的属性-->
                 <filtering>true</filtering>
@@ -76,7 +103,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.2.RELEASE</version>
+                <configuration>
+                    <mainClass>com.demo.spring.server.ApplicationStarter</mainClass>
+                </configuration>
             </plugin>
             <!-- 配置jdk版本 -->
             <plugin>
@@ -87,16 +116,6 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <!-- 没有web.xml 配置 failOnMissingWebXml为false -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <!-- 没有web.xml文件 可以继续编译 -->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
             <!-- 配置编译时处理junit -->

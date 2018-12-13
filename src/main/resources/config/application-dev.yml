@@ -4,5 +4,5 @@ demo:
       port: 12380
       eureka:
         instance:
-          hostname: 10.0.130.46
-          ip-address: 10.0.130.46
+          hostname: 10.0.78.74
+          ip-address: 10.0.78.74
