@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: demo-spring-server
+  profiles:
+    active: dev
+
+server:
+  port: ${demo.spring.server.port}
+
+eureka:
+  instance:
+    hostname: ${demo.spring.server.eureka.instance.hostname}
+    appname: ${spring.application.name}
+    ip-address: ${demo.spring.server.eureka.instance.ip-address}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
