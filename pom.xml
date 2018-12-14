@@ -14,6 +14,7 @@
         <build.version>1.0.0</build.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <main.class>com.demo.spring.server.ApplicationStarter</main.class>
         <profile.active.dev>dev</profile.active.dev>
         <profile.active.test>test</profile.active.test>
         <profile.active.prop>prop</profile.active.prop>
@@ -104,7 +105,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.demo.spring.server.ApplicationStarter</mainClass>
+                    <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
             <!-- 配置jdk版本 -->
