@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <profile.active.dev>dev</profile.active.dev>
         <profile.active.test>test</profile.active.test>
-        <profile.active.prop>prop</profile.active.prop>
+        <profile.active.prod>prod</profile.active.prod>
     </properties>
 
     <parent>
@@ -79,9 +79,9 @@
             </properties>
         </profile>
         <profile>
-            <id>${profile.active.prop}</id>
+            <id>${profile.active.prod}</id>
             <properties>
-                <spring.profiles.active>${profile.active.prop}</spring.profiles.active>
+                <spring.profiles.active>${profile.active.prod}</spring.profiles.active>
             </properties>
         </profile>
     </profiles>
